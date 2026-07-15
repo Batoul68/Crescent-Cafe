@@ -1,25 +1,19 @@
 public class Order {
 
-  /*
-  String customer_name
-  int drink_selection
-  int size_selection
+  // Variable declarations
+  public String customer_name;
+  public int drink_selection;
+  public int size_selection;
 
-  public Order() {
-  
-  }
-
-  public void Order(String name, int drink, int size) {
+  //Override default constructor
+  public Order(String name, int drink, int size) {
     customer_name = name;
     drink_selection = drink;
     size_selection = size;
   }
 
+  //Override default toString
   public String toString() {
-    //return (customer_name + " " + (find a way to see the list of MenuItems in Cafe and get the name of the drink and size based on the number))
+    return (customer_name + " " + Cafe.listOfDrinks.get(drink_selection) + Cafe.listOfSizes.get(size_selection));
   }
-  */
-
-
-  
 }
