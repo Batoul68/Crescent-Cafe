@@ -56,9 +56,8 @@ public class Cafe {
     int userChoice;
     boolean open = true;
 
-    displayMenu();
-
     do {
+      displayMenu();
       System.out.print("Select a menu item: ");
 
       do {
@@ -99,8 +98,8 @@ public class Cafe {
   public void createOrder() {
     displayCreateOrder();
 
-    //String customer_name = promptName();
-    //System.out.println(customer_name);
+    String customer_name = promptName();
+    System.out.println(customer_name);
     //int drink_selection = promptDrink();
     //int size_selection = promptSize();
    
@@ -143,24 +142,25 @@ public class Cafe {
   * @param - void
   * return - String
   */
- /* 
+
   public String promptName() {
     boolean isName = false;
-    String name = "";
 
-    while (!isName) {
-      System.out.print("What is the name for the order?: ");
-      name = input.nextLine();
-      
-      isName = (name.trim().length() == 3);
+    Scanner nameInput = new Scanner(System.in);
+    System.out.print("What's the name for the order?: ");
+    String name = nameInput.next();
 
-      if (!isName) {
-        System.out.println("Please enter a name that is at least 3 letters: ");
+    while (!isName){
+      if (name.trim().length() < 3){
+        System.out.print("Please enter a name that is at least 3 characters: ");
+        name = nameInput.next();
+      }
+      else {
+        isName = true;
       }
     }
     return name;
   }
-    */
 /* 
   public int promptDrink() {
     //validate user input and return the menu number for the drink (should correspond with position in list of MenuItems (drinks))
