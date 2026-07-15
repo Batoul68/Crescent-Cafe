@@ -9,7 +9,7 @@ public class Cafe {
   double [] dirnk_prices = {5.50, 6.25, 4.75, 5.25, 4.50};
   String [] size_names = {"small", "medium", "large"};
   double [] size_prices = {0.0, 0.75, 0.75};
-  Scanner input = new Scanner(System.in);
+  private final Scanner input = new Scanner(System.in);
   
   public Cafe() {
     initializeDrinkMenu();
@@ -67,6 +67,7 @@ public class Cafe {
         }
 
         userChoice = input.nextInt(); 
+        input.nextLine();
 
         if (userChoice <= 0) {
           System.out.print("Invalid, please enter a number greater than 0: ");
@@ -137,29 +138,27 @@ public class Cafe {
   */
 
   /*        getName       *
-  * This method prompts the user for their name and validates the input.
+  * This method prompts the user for their name and validates the input, then cleans it.
   *
   * @param - void
   * return - String
   */
 
   public String promptName() {
-    boolean isName = false;
-
-    Scanner nameInput = new Scanner(System.in);
     System.out.print("What's the name for the order?: ");
-    String name = nameInput.next();
+    while(true) {
+      String name = input.nextLine().trim();
 
-    while (!isName){
-      if (name.trim().length() < 3){
-        System.out.print("Please enter a name that is at least 3 characters: ");
-        name = nameInput.next();
+      if (!name.matches("[\\p{L} '-]+")) {
+        System.out.print("Invalid, only use letters, spaces, apostrophes, or hyphens: ");
       }
-      else {
-        isName = true;
+      else if (name.length() < 3) {
+        System.out.print("Invalid, please enter a name that is at least 3 letters: ");
+      }
+      else{
+        return (name.substring(0,1).toUpperCase().concat(name.substring(1,name.length()).toLowerCase()));
       }
     }
-    return name;
   }
 /* 
   public int promptDrink() {
