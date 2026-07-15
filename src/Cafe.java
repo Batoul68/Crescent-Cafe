@@ -1,32 +1,52 @@
+import java.util.ArrayList;
+import java.util.List;
 public class Cafe {
 
-  /*
-  List of MenuItems (drinks)
-  List of Orders
-  List of MenuItems (sizes)
-  String customer_name
-  int drink_selection
-  int size_selection
-  drink_names[]
-  drink_prices[]
+  // Variable declarations
+  static ArrayList<MenuItem> listOfDrinks = new ArrayList<MenuItem>();
+  static ArrayList<MenuItem> listOfSizes = new ArrayList<MenuItem>();
+  public ArrayList<Order> listOfOrders = new ArrayList<Order>();
+  String customer_name;
+  int drink_selection;
+  int size_selection;
+  String [] drink_names = {"Moonlight Latte", "Strawberry Cloud Matcha", "Starlight Hot Chocolate", "Vanilla Comet Cold Brew", "Lavendar Dream Tea"};
+  double [] dirnk_prices = {5.50, 6.25, 4.75, 5.25, 4.50};
+  String [] size_names = {"small", "medium", "large"};
+  double [] size_prices = {0.0, 0.75, 0.75};
   
   public Cafe() {
-    //call initializeDrinkMenu() and initializeSizeMenu()
+    initializeDrinkMenu();
+    initializeSizeMenu();
   }
 
+  /*        initializeDrinkMenu       *
+  * This method creates a MenuItem with a drink_name and drink_price
+  * and adds it to the listOfDrinks until all drinks on the menu are added.
+  *
+  * @param - void
+  * return - void
+  */
   public void initializeDrinkMenu() {
-    //use drink_names[] and drink_prices[]
-    //in a for loop, iterating over the length of the drink arrays
-    //create MenuItem with name and price
-    //add to list of MenuItems (drinks)
+    for (int i = 0; i < drink_names.length; i++){
+      MenuItem newItem = new MenuItem(drink_names[i], dirnk_prices[i]);
+      listOfDrinks.add(newItem);
+    }
   }
 
-  public void initializeSizeMenu(){
-    //loop 3 times
-    //create MenuItem with size and price
-    //add to list of MenuItems (size)
+    /*        initializeSizeMenu       *
+  * This method creates a MenuItem with a size and price (medium and large are an extra $0.75)
+  * and adds it to the listOfSizes with small, medium, and large.
+  *
+  * @param - void
+  * return - void
+  */
+  public void initializeSizeMenu() {
+    for (int i = 0; i < size_names.length; i++){
+      MenuItem newSize = new MenuItem(size_names[i], size_prices[i]);
+      listOfSizes.add(newSize);
+    }
   }
-
+/* 
   public void runCafe() {
     //call displayMenu()
     //loop while cafe is open (cafeOpen=true)
