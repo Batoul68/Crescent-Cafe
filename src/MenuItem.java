@@ -8,6 +8,22 @@ public class MenuItem {
     item_price = price;
   }
 
+  public String getItemName() {
+    return item_name;
+  }
+
+  public double getItemPrice() {
+    return item_price;
+  }
+
+  public void setItemName(String name) {
+    item_name = name;
+  }
+
+  public void setItemPrice(double price) {
+    item_price = price;
+  }
+
   public String toString() {
     return (item_name + " " + item_price);
   }
