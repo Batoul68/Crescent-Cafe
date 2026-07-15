@@ -1,14 +1,10 @@
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 public class Cafe {
 
-  // Variable declarations
   static ArrayList<MenuItem> listOfDrinks = new ArrayList<MenuItem>();
   static ArrayList<MenuItem> listOfSizes = new ArrayList<MenuItem>();
   public ArrayList<Order> listOfOrders = new ArrayList<Order>();
-  String customer_name;
-  int drink_selection;
-  int size_selection;
   String [] drink_names = {"Moonlight Latte", "Strawberry Cloud Matcha", "Starlight Hot Chocolate", "Vanilla Comet Cold Brew", "Lavendar Dream Tea"};
   double [] dirnk_prices = {5.50, 6.25, 4.75, 5.25, 4.50};
   String [] size_names = {"small", "medium", "large"};
@@ -19,7 +15,7 @@ public class Cafe {
     initializeSizeMenu();
   }
 
-  /*        initializeDrinkMenu       *
+  /*        initializeDrinkMenu       
   * This method creates a MenuItem with a drink_name and drink_price
   * and adds it to the listOfDrinks until all drinks on the menu are added.
   *
@@ -33,7 +29,7 @@ public class Cafe {
     }
   }
 
-    /*        initializeSizeMenu       *
+  /*        initializeSizeMenu       *
   * This method creates a MenuItem with a size and price (medium and large are an extra $0.75)
   * and adds it to the listOfSizes with small, medium, and large.
   *
@@ -46,16 +42,49 @@ public class Cafe {
       listOfSizes.add(newSize);
     }
   }
-/* 
+
+   /*        runCafe       *
+  * This method displays the main menu and reads the users choice, calling
+  * calling the method that corresponds to their choice. It loops until
+  * the cafe is closed.
+  *
+  * @param - void
+  * return - void
+  */
   public void runCafe() {
-    //call displayMenu()
-    //loop while cafe is open (cafeOpen=true)
-    //take user input for menuChoice
-    //switch statement based on menuChoice
-    //call methods relating to the menu options
+    Scanner input = new Scanner(System.in);
+    int userChoice;
+    boolean open = true;
+
+    do {
+      displayMenu();
+      userChoice = input.nextInt(); 
+      
+      switch(userChoice) {
+        case 1: 
+          createOrder();
+          break;
+        case 2: 
+          closeCafe();
+          open = false;
+          break;
+        default:
+          System.out.println("That's not a menu option, please enter a valid item! ~");
+          break;
+      }
+    }while (open);
   }
 
+  /*        createOrder       *
+  * This method gathers user info to create an Order object. The order is added to a
+  * listOfOrders and the receipt is displayed.
+  *
+  * @param - void
+  * return - void
+  */
   public void createOrder() {
+    //String customer_name = getName();
+    //int drink_selection
     //call methods to get user info
     //customer_name = getName()
     //drink_selection = getDrink()
@@ -65,10 +94,19 @@ public class Cafe {
     //newOrder.displayReceipt
   }
 
-  public void displayMenu() {
-      //Display the main menu with options
-    }
 
+  public void displayMenu() {
+    displayLines();
+    // try to get it to support these characters:.✦ ݁˖ ☾res☾ent ☾afé .✦ ݁˖
+    System.out.println("Cresecent Café");
+    displayLines();
+    System.out.println("1. Place a new order\n2. Close the café");
+  }
+
+  public void displayLines() {
+    System.out.println("==============================");
+  }
+/* 
   public void displayDrinks() {
     //display drinks
   }
@@ -76,6 +114,7 @@ public class Cafe {
   public void displaySizes() {
     //display sizes
   }
+  
 
   public String getName() {
     //validate user input and return clean name
@@ -88,5 +127,5 @@ public class Cafe {
   public int getSize() {
     //validate user input and return the menu number for the size (should correspond with position in list of MenuItems (sizes))
   }
-  */
+    */
 }
