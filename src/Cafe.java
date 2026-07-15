@@ -58,7 +58,7 @@ public class Cafe {
 
     do {
       displayMenu();
-      System.out.print("Select a menu item: ");
+      System.out.print("\nSelect a menu item: ");
 
       do {
         while(!input.hasNextInt()) {
@@ -100,7 +100,9 @@ public class Cafe {
     displayCreateOrder();
 
     String customer_name = promptName();
-    System.out.println(customer_name);
+    System.out.println("\nWelcome to Crescent Café " + customer_name + "!"); 
+
+    displayDrinks();
     //int drink_selection = promptDrink();
     //int size_selection = promptSize();
    
@@ -108,34 +110,6 @@ public class Cafe {
     //add newOrder to list of Orders
     //newOrder.displayReceipt
   }
-
-
-  public void displayMenu() {
-    displayLines();
-    // try to get it to support these characters:.✦ ݁˖ ☾res☾ent ☾afé .✦ ݁˖
-    System.out.println("Cresecent Café");
-    displayLines();
-    System.out.println("1. Place a new order\n2. Close the café");
-  }
-
-  public void displayLines() {
-    System.out.println("==============================");
-  }
-
-  public void displayCreateOrder() {
-    displayLines();
-    System.out.println("CREATE NEW ORDER");
-    displayLines();
-  }
-/* 
-  public void displayDrinks() {
-    //display drinks
-  }
-
-  public void displaySizes() {
-    //display sizes
-  }
-  */
 
   /*        getName       *
   * This method prompts the user for their name and validates the input, then cleans it.
@@ -145,7 +119,7 @@ public class Cafe {
   */
 
   public String promptName() {
-    System.out.print("What's the name for the order?: ");
+    System.out.print("\nWhat's the name for the order?: ");
     while(true) {
       String name = input.nextLine().trim();
 
@@ -169,5 +143,42 @@ public class Cafe {
     //validate user input and return the menu number for the size (should correspond with position in list of MenuItems (sizes))
   }
   */
+
+  public void displayMenu() {
+    displayLines();
+    // try to get it to support these characters:.✦ ݁˖ ☾res☾ent ☾afé .✦ ݁˖
+    System.out.println("\tCresecent Café");
+    displayLines();
+    System.out.println("1. Place a new order\n2. Close the café");
+  }
+
+  public void displayLines() {
+    System.out.println("=================================");
+  }
+
+  public void displayCreateOrder() {
+    displayLines();
+    System.out.println("\tCREATE NEW ORDER");
+    displayLines();
+  }
+
+  public void displayDrinks() {
+    System.out.println("\nDRINK MENU");
+    int lineWidth = 25;
+    int itemNumber = 1;
+    for (int i = 0; i < listOfDrinks.size(); i++) {
+      int amountOfDots = lineWidth - listOfDrinks.get(i).getItemName().length();
+      System.out.printf(
+        "%h %s %s $%.2f%n", itemNumber, listOfDrinks.get(i).getItemName(), ".".repeat(amountOfDots), listOfDrinks.get(i).getItemPrice()
+      );
+      itemNumber++;
+    }
+  }
+
+  public void displaySizes() {
+    //display sizes
+  }
+
+  
   
 }
