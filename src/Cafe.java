@@ -9,6 +9,7 @@ public class Cafe {
   double [] dirnk_prices = {5.50, 6.25, 4.75, 5.25, 4.50};
   String [] size_names = {"small", "medium", "large"};
   double [] size_prices = {0.0, 0.75, 0.75};
+  Scanner input = new Scanner(System.in);
   
   public Cafe() {
     initializeDrinkMenu();
@@ -52,27 +53,40 @@ public class Cafe {
   * return - void
   */
   public void runCafe() {
-    Scanner input = new Scanner(System.in);
     int userChoice;
     boolean open = true;
 
+    displayMenu();
+
     do {
-      displayMenu();
-      userChoice = input.nextInt(); 
+      System.out.print("Select a menu item: ");
+
+      do {
+        while(!input.hasNextInt()) {
+          System.out.print("Invalid, please enter a number: ");
+          input.next();
+        }
+
+        userChoice = input.nextInt(); 
+
+        if (userChoice <= 0) {
+          System.out.print("Invalid, please enter a number greater than 0: ");
+        }
+      } while(userChoice<= 0);
       
       switch(userChoice) {
         case 1: 
           createOrder();
           break;
-        case 2: 
-          closeCafe();
-          open = false;
-          break;
+        //case 2: 
+          //closeCafe();
+          //open = false;
+          //break;
         default:
           System.out.println("That's not a menu option, please enter a valid item! ~");
           break;
       }
-    }while (open);
+    } while (open);
   }
 
   /*        createOrder       *
@@ -83,12 +97,13 @@ public class Cafe {
   * return - void
   */
   public void createOrder() {
-    //String customer_name = getName();
-    //int drink_selection
-    //call methods to get user info
-    //customer_name = getName()
-    //drink_selection = getDrink()
-    //size_selection = getSize()
+    displayCreateOrder();
+
+    //String customer_name = promptName();
+    //System.out.println(customer_name);
+    //int drink_selection = promptDrink();
+    //int size_selection = promptSize();
+   
     //make newOrder Order object with info
     //add newOrder to list of Orders
     //newOrder.displayReceipt
@@ -106,6 +121,12 @@ public class Cafe {
   public void displayLines() {
     System.out.println("==============================");
   }
+
+  public void displayCreateOrder() {
+    displayLines();
+    System.out.println("CREATE NEW ORDER");
+    displayLines();
+  }
 /* 
   public void displayDrinks() {
     //display drinks
@@ -114,18 +135,40 @@ public class Cafe {
   public void displaySizes() {
     //display sizes
   }
-  
+  */
 
-  public String getName() {
-    //validate user input and return clean name
+  /*        getName       *
+  * This method prompts the user for their name and validates the input.
+  *
+  * @param - void
+  * return - String
+  */
+ /* 
+  public String promptName() {
+    boolean isName = false;
+    String name = "";
+
+    while (!isName) {
+      System.out.print("What is the name for the order?: ");
+      name = input.nextLine();
+      
+      isName = (name.trim().length() == 3);
+
+      if (!isName) {
+        System.out.println("Please enter a name that is at least 3 letters: ");
+      }
+    }
+    return name;
   }
-
-  public int getDrink() {
+    */
+/* 
+  public int promptDrink() {
     //validate user input and return the menu number for the drink (should correspond with position in list of MenuItems (drinks))
   }
 
-  public int getSize() {
+  public int promptSize() {
     //validate user input and return the menu number for the size (should correspond with position in list of MenuItems (sizes))
   }
-    */
+  */
+  
 }
