@@ -32,10 +32,47 @@ public class ConsoleInput {
       System.out.printf("Out of bounds! Please enter a number from %d to %d.%n", min, max);
 
     } catch (NumberFormatException e) {
-      System.out.println("Please enter a whole number");
+        System.out.println("Please enter a whole number");
     }
   }
  }
 
+  /**
+  * Continuously prompt the user, calling readNonBlankString(), until user inputs
+  * a non blank string with valid characters. Cleans the name before returning it.
+  *
+  *  @param prompt message displayed to user
+  *  @return validated and clean name
+  */
+ public String readName(String prompt) {
+  while (true) {
+    String name = readNonBlankString(prompt);
 
+    if (name.matches("[\\p{L} '-]+")) {
+      return (name.substring(0,1).toUpperCase().concat(name.substring(1,name.length()).toLowerCase()));
+    }
+
+    System.out.println("Please only use letters, spaces, apostrophes, and hyphens");
+  }
+ }
+
+  /**
+  * Continuously prompt the user until user inputs a non blank string.
+  * Return the non blank input.
+  *
+  *  @param prompt message displayed to user
+  *  @return non blank input
+  */
+ public String readNonBlankString(String prompt) {
+  while (true) {
+    System.out.print(prompt);
+    String text = scanner.nextLine().trim();
+
+    if (!text.isBlank()) {
+      return text;
+    }
+
+    System.out.println("You can't leave this blank!");
+  }
+ }
 }
