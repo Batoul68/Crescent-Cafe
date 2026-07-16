@@ -16,12 +16,9 @@ public class Cafe {
     initializeSizeMenu();
   }
 
-  /*        initializeDrinkMenu       
+  /**  
   * This method creates a MenuItem with a drink_name and drink_price
   * and adds it to the listOfDrinks until all drinks on the menu are added.
-  *
-  * @param - void
-  * return - void
   */
   public void initializeDrinkMenu() {
     for (int i = 0; i < drink_names.length; i++){
@@ -30,12 +27,9 @@ public class Cafe {
     }
   }
 
-  /*        initializeSizeMenu       *
+  /**
   * This method creates a MenuItem with a size and price (medium and large are an extra $0.75)
   * and adds it to the listOfSizes with small, medium, and large.
-  *
-  * @param - void
-  * return - void
   */
   public void initializeSizeMenu() {
     for (int i = 0; i < size_names.length; i++){
@@ -44,13 +38,10 @@ public class Cafe {
     }
   }
 
-   /*        runCafe       *
+   /**
   * This method displays the main menu and reads the users choice, calling
   * calling the method that corresponds to their choice. It loops until
   * the cafe is closed.
-  *
-  * @param - void
-  * return - void
   */
   public void runCafe() {
     int userChoice;
@@ -89,12 +80,9 @@ public class Cafe {
     } while (open);
   }
 
-  /*        createOrder       *
+  /**
   * This method gathers user info to create an Order object. The order is added to a
   * listOfOrders and the receipt is displayed.
-  *
-  * @param - void
-  * return - void
   */
   public void createOrder() {
     displayCreateOrder();
@@ -111,11 +99,10 @@ public class Cafe {
     //newOrder.displayReceipt
   }
 
-  /*        getName       *
+  /**
   * This method prompts the user for their name and validates the input, then cleans it.
   *
-  * @param - void
-  * return - String
+  * @return validated and cleaned name
   */
 
   public String promptName() {
