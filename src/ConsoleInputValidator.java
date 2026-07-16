@@ -32,7 +32,7 @@ public class ConsoleInputValidator {
       System.out.printf("Out of bounds! Please enter a number from %d to %d.%n", min, max);
 
     } catch (NumberFormatException e) {
-        System.out.println("Please enter a whole number");
+        System.out.println("Please enter a whole number.");
     }
   }
  }
@@ -52,7 +52,7 @@ public class ConsoleInputValidator {
       return (name.substring(0,1).toUpperCase().concat(name.substring(1,name.length()).toLowerCase()));
     }
 
-    System.out.println("Please only use letters, spaces, apostrophes, and hyphens");
+    System.out.println("Please only use letters, spaces, apostrophes, and hyphens.");
   }
  }
 

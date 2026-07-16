@@ -6,21 +6,41 @@ public class Order {
 
   public Order(String name, MenuItem drink, MenuItem size) {
     // Input validation
-    if (customerName == null || customerName.isBlank()) {
-      throw new IllegalArgumentException("Customer name can't be blank");
+    if (name == null || name.isBlank()) {
+      throw new IllegalArgumentException("You have a name given to you at birth, please enter it.");
     }
+    
 
     if (drink == null) {
-      throw new IllegalArgumentException("Drink can't be null");
+      throw new IllegalArgumentException("You have to order something!");
     }
 
     if (size == null) {
-      throw new IllegalArgumentException("Size can't be null");
+      throw new IllegalArgumentException("You must choose a size, you can't run away.");
     }
 
     this.customerName = name;
     this.drinkItem = drink;
     this.sizeItem = size;
+  }
+
+  /**
+   * Displays the receipt for the order
+   */
+  public void displayReceipt() {
+    System.out.println("\nCustomer: "+customerName);
+    System.out.println(sizeItem.getItemName()+" "+drinkItem.getItemName());
+    System.out.printf("%s $%.2f", "Drink total: ", orderTotal());
+  }
+
+  /**
+   * Calculates the total for the order
+   * 
+   * @return order total
+   */
+  public double orderTotal() {
+    double total = drinkItem.getItemPrice() + sizeItem.getItemPrice();
+    return total;
   }
 
   public String getCustomerName() {
@@ -43,7 +63,7 @@ public class Order {
     this.drinkItem = drink;
   }
 
-  public void setSiz(MenuItem size) {
+  public void setSize(MenuItem size) {
     this.sizeItem = size;
   }
 

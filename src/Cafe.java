@@ -2,14 +2,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Cafe {
 
+  private final Scanner input = new Scanner(System.in);
+  private final ConsoleInputValidator consoleInput = new ConsoleInputValidator(input);
+
   static ArrayList<MenuItem> listOfDrinks = new ArrayList<MenuItem>();
   static ArrayList<MenuItem> listOfSizes = new ArrayList<MenuItem>();
   public ArrayList<Order> listOfOrders = new ArrayList<Order>();
   String [] drink_names = {"Moonlight Latte", "Strawberry Cloud Matcha", "Starlight Hot Chocolate", "Vanilla Comet Cold Brew", "Lavendar Dream Tea"};
   double [] dirnk_prices = {5.50, 6.25, 4.75, 5.25, 4.50};
-  String [] size_names = {"small", "medium", "large"};
+  String [] size_names = {"Small", "Medium", "Large"};
   double [] size_prices = {0.0, 0.75, 0.75};
-  private final Scanner input = new Scanner(System.in);
   
   public Cafe() {
     initializeDrinkMenu();
@@ -49,30 +51,16 @@ public class Cafe {
 
     do {
       displayMenu();
-      System.out.print("\nSelect a menu item: ");
-
-      do {
-        while(!input.hasNextInt()) {
-          System.out.print("Invalid, please enter a number: ");
-          input.next();
-        }
-
-        userChoice = input.nextInt(); 
-        input.nextLine();
-
-        if (userChoice <= 0) {
-          System.out.print("Invalid, please enter a number greater than 0: ");
-        }
-      } while(userChoice<= 0);
+      userChoice = consoleInput.readIntInRange("\nSelect a menu item: ",1 , 2);
       
       switch(userChoice) {
         case 1: 
           createOrder();
           break;
-        //case 2: 
-          //closeCafe();
-          //open = false;
-          //break;
+        case 2: 
+          System.out.println("\nCafe is now closed, thank you for coming in today!\n");
+          open = false;
+          break;
         default:
           System.out.println("That's not a menu option, please enter a valid item! ~");
           break;
@@ -87,12 +75,23 @@ public class Cafe {
   public void createOrder() {
     displayCreateOrder();
 
-    String customer_name = promptName();
-    System.out.println("\nWelcome to Crescent Café " + customer_name + "!"); 
+    String customerName = promptName();
+    System.out.println("\nWelcome to Crescent Café " + customerName + "!"); 
 
     displayDrinks();
-    //int drink_selection = promptDrink();
-    //int size_selection = promptSize();
+    int drinkSelection = promptDrink();
+
+    displaySizes();
+    int sizeSelection = promptSize();
+
+    Order newOrder = new Order(customerName, listOfDrinks.get(drinkSelection-1), listOfSizes.get(sizeSelection-1));
+    listOfOrders.add(newOrder);
+
+    displayReceiptTitle();
+    newOrder.displayReceipt();
+    System.out.println("\n");
+    displayLines();
+    System.out.println("\nYour order is being prepared!\n");
    
     //make newOrder Order object with info
     //add newOrder to list of Orders
@@ -100,37 +99,41 @@ public class Cafe {
   }
 
   /**
-  * This method prompts the user for their name and validates the input, then cleans it.
+  * This method prompts the user for their name and sends it to ConsoleInputValidator, returning
+  * a clean and valid name.
   *
   * @return validated and cleaned name
   */
-
   public String promptName() {
-    System.out.print("\nWhat's the name for the order?: ");
-    while(true) {
-      String name = input.nextLine().trim();
-
-      if (!name.matches("[\\p{L} '-]+")) {
-        System.out.print("Invalid, only use letters, spaces, apostrophes, or hyphens: ");
-      }
-      else if (name.length() < 3) {
-        System.out.print("Invalid, please enter a name that is at least 3 letters: ");
-      }
-      else{
-        return (name.substring(0,1).toUpperCase().concat(name.substring(1,name.length()).toLowerCase()));
-      }
-    }
-  }
-/* 
-  public int promptDrink() {
-    //validate user input and return the menu number for the drink (should correspond with position in list of MenuItems (drinks))
+    String name = consoleInput.readName("\nWhat's the name for the order?: ");
+    return name;
   }
 
-  public int promptSize() {
-    //validate user input and return the menu number for the size (should correspond with position in list of MenuItems (sizes))
-  }
+  /**
+  * This method prompts the user for their drink choice and sends it to ConsoleInputValidator, 
+  * returning a valid number.
+  *
+  * @return validated drink selection
   */
+  public int promptDrink() {
+    int drink = consoleInput.readIntInRange("\nWhich drink would you like?: ", 1, 5);
+    return drink;
+  }
 
+  /**
+  * This method prompts the user for their size choice and sends it to ConsoleInputValidator, 
+  * returning a valid number.
+  *
+  * @return validated size selection
+  */
+  public int promptSize() {
+    int size = consoleInput.readIntInRange("\nSelect a drink size: ",1, 3);
+    return size;
+  }
+
+  /**
+   * Displays main menu
+   */
   public void displayMenu() {
     displayLines();
     // try to get it to support these characters:.✦ ݁˖ ☾res☾ent ☾afé .✦ ݁˖
@@ -139,16 +142,33 @@ public class Cafe {
     System.out.println("1. Place a new order\n2. Close the café");
   }
 
+  /**
+   * Displays equal signs to make things prettier
+   */
   public void displayLines() {
     System.out.println("=================================");
   }
 
+  /**
+   * Displays a sign when creating a new order
+   */
   public void displayCreateOrder() {
     displayLines();
     System.out.println("\tCREATE NEW ORDER");
     displayLines();
   }
 
+  /**
+   * Displays a sign for the receipt
+   */
+  public void displayReceiptTitle() {
+    displayLines();
+    System.out.println("\tCRESCENT CAFÉ RECEIPT");
+  }
+
+  /**
+   * Displays the drink menu
+   */
   public void displayDrinks() {
     System.out.println("\nDRINK MENU");
     int lineWidth = 25;
@@ -162,10 +182,19 @@ public class Cafe {
     }
   }
 
+  /**
+   * Displays the size menu
+   */
   public void displaySizes() {
-    //display sizes
+    System.out.println("\nSIZES");
+    int lineWidth = 25;
+    int itemNumber = 1;
+    for (int i = 0; i < listOfSizes.size(); i++) {
+      int amountOfDots = lineWidth - listOfSizes.get(i).getItemName().length();
+      System.out.printf(
+        "%h %s %s $%.2f%n", itemNumber, listOfSizes.get(i).getItemName(), ".".repeat(amountOfDots), listOfSizes.get(i).getItemPrice()
+      );
+      itemNumber++;
+    }
   }
-
-  
-  
 }
