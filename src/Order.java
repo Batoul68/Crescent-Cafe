@@ -1,39 +1,53 @@
 public class Order {
 
   public String customerName;
-  public MenuItem item;
+  public MenuItem drinkItem;
+  public MenuItem sizeItem;
 
-  public Order(String name, MenuItem menu) {
+  public Order(String name, MenuItem drink, MenuItem size) {
     // Input validation
     if (customerName == null || customerName.isBlank()) {
       throw new IllegalArgumentException("Customer name can't be blank");
     }
 
-    if (menu == null) {
-      throw new IllegalArgumentException("Menu item can't be null");
+    if (drink == null) {
+      throw new IllegalArgumentException("Drink can't be null");
+    }
+
+    if (size == null) {
+      throw new IllegalArgumentException("Size can't be null");
     }
 
     this.customerName = name;
-    this.item = menu;
+    this.drinkItem = drink;
+    this.sizeItem = size;
   }
 
   public String getCustomerName() {
     return customerName;
   }
 
-  public MenuItem getItem() {
-    return item;
+  public MenuItem getDrink() {
+    return drinkItem;
+  }
+
+  public MenuItem getSize() {
+    return sizeItem;
   }
 
   public void setCustomerName(String name) {
     this.customerName = name;
   }
 
-  public void setItem(MenuItem menu) {
-    this.item = menu;
+  public void setDrink(MenuItem drink) {
+    this.drinkItem = drink;
+  }
+
+  public void setSiz(MenuItem size) {
+    this.sizeItem = size;
   }
 
   public String toString() {
-    return (customerName + " " + item.getItemName() + item.getItemPrice());
+    return (customerName + " " + drinkItem.getItemName() + drinkItem.getItemPrice());
   }
 }
