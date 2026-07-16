@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 // This class will validate all console input from the user
-public class ConsoleInput {
+public class ConsoleInputValidator {
   private final Scanner scanner;
 
-  public ConsoleInput(Scanner scanner){
+  public ConsoleInputValidator(Scanner scanner){
     this.scanner = scanner;
   }
 
