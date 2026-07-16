@@ -1,30 +1,30 @@
 public class MenuItem {
   
-  public String item_name;
-  public double item_price;
+  public String itemName;
+  public double itemPrice;
 
   public MenuItem(String name, double price) {
-    item_name = name;
-    item_price = price;
+    this.itemName = name;
+    this.itemPrice = price;
   }
 
   public String getItemName() {
-    return item_name;
+    return itemName;
   }
 
   public double getItemPrice() {
-    return item_price;
+    return itemPrice;
   }
 
   public void setItemName(String name) {
-    item_name = name;
+    itemName = name;
   }
 
   public void setItemPrice(double price) {
-    item_price = price;
+    itemPrice = price;
   }
 
   public String toString() {
-    return (item_name + " " + item_price);
+    return (itemName + " " + itemPrice);
   }
 }
