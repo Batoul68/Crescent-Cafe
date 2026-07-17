@@ -1,3 +1,4 @@
+package app;
 public class Driver {
     /** Crescent Cafe
      * This program will simulate a cafe inspired by astronomy. The user will be shown a menu with options (for first draft, only able to order).

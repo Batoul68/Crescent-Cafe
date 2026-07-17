@@ -1,3 +1,4 @@
+package input;
 import java.util.Scanner;
 
 // This class will validate all console input from the user

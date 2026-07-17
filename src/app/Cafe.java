@@ -1,5 +1,12 @@
+package app;
+import database.DatabaseConnection;
+import input.ConsoleInputValidator;
+import model.MenuItem;
+import model.Order;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Cafe {
 
   private final Scanner input = new Scanner(System.in);

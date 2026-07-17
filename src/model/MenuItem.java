@@ -1,3 +1,4 @@
+package model;
 public class MenuItem {
   
   public String itemName;
