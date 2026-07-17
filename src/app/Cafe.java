@@ -31,8 +31,8 @@ public class Cafe {
   */
   public void initializeDrinkMenu() {
     for (int i = 0; i < drink_names.length; i++){
-      MenuItem newItem = new MenuItem(drink_names[i], dirnk_prices[i]);
-      listOfDrinks.add(newItem);
+      //MenuItem newItem = new MenuItem(drink_names[i], dirnk_prices[i]);
+      //listOfDrinks.add(newItem);
     }
   }
 
@@ -42,8 +42,8 @@ public class Cafe {
   */
   public void initializeSizeMenu() {
     for (int i = 0; i < size_names.length; i++){
-      MenuItem newSize = new MenuItem(size_names[i], size_prices[i]);
-      listOfSizes.add(newSize);
+      //MenuItem newSize = new MenuItem(size_names[i], size_prices[i]);
+      //listOfSizes.add(newSize);
     }
   }
 

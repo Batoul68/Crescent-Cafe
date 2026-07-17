@@ -1,4 +1,10 @@
 package app;
+
+import java.util.ArrayList;
+
+import database.MenuRepository;
+import model.MenuItem;
+
 public class Driver {
     /** Crescent Cafe
      * This program will simulate a cafe inspired by astronomy. The user will be shown a menu with options (for first draft, only able to order).
@@ -12,7 +18,10 @@ public class Driver {
      */
     public static void main(String[] args) throws Exception {
         Cafe cafe = new Cafe();
-        cafe.runCafe();
         //cafe.runCafe();
+
+        MenuRepository menu = new MenuRepository();
+        ArrayList<MenuItem> drinks = menu.getAllDrinks();
+        menu.printDrinksList(drinks);
     }
 }
