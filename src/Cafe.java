@@ -40,7 +40,7 @@ public class Cafe {
     }
   }
 
-   /**
+  /**
   * This method displays the main menu and reads the users choice, calling
   * calling the method that corresponds to their choice. It loops until
   * the cafe is closed.
