@@ -87,6 +87,7 @@ public class Cafe {
     Order newOrder = new Order(customerName, listOfDrinks.get(drinkSelection-1), listOfSizes.get(sizeSelection-1));
     listOfOrders.add(newOrder);
 
+    System.out.println("\n");
     displayReceiptTitle();
     newOrder.displayReceipt();
     System.out.println("\n");
