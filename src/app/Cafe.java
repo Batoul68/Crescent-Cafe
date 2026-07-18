@@ -6,6 +6,7 @@ import model.MenuItem;
 import model.Order;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Cafe {
@@ -13,15 +14,41 @@ public class Cafe {
   private final Scanner input = new Scanner(System.in);
   private final ConsoleInputValidator consoleInput = new ConsoleInputValidator(input);
 
-  static ArrayList<MenuItem> listOfDrinks = new ArrayList<MenuItem>();
-  static ArrayList<MenuItem> listOfSizes = new ArrayList<MenuItem>();
-  public ArrayList<Order> listOfOrders = new ArrayList<Order>();
-  MenuRepository menu = new MenuRepository();
+  private List<MenuItem> listOfDrinks;
+  private List<MenuItem> listOfSizes;
+  private List<Order> listOfOrders;
   
   public Cafe() {
-    listOfDrinks = menu.getAllDrinks();
-    listOfSizes = menu.getAllSizes();
+    listOfDrinks = new ArrayList<>();
+    listOfSizes = new ArrayList<>();
+    listOfOrders = new ArrayList<>();
   }
+
+ /**
+  * This method loads the drinks and sizes from a database into ArrayLists 
+  * and checks if the lists are empty or not, making sure the database has
+  * data in it
+  * 
+  * @return if the lists are empty or not
+  */
+  private boolean loadMenu() {
+    MenuRepository menuRepository = new MenuRepository();
+
+    listOfDrinks = menuRepository.getAllDrinks();
+    listOfSizes = menuRepository.getAllSizes();
+
+    if (listOfDrinks.isEmpty()) {
+      System.out.println("No drinks are available at this time!");
+      return false;
+    }
+
+    if (listOfSizes.isEmpty()) {
+      System.out.println("No drink sizes are available at this time.");
+      return false;
+    }
+
+    return true;
+ }
 
   /**
   * This method displays the main menu and reads the users choice, calling
@@ -29,6 +56,11 @@ public class Cafe {
   * the cafe is closed.
   */
   public void runCafe() {
+    if (!loadMenu()){
+      System.out.println("Cafe is sold out today! Please come again tomorrow.");
+      return;
+    }
+    
     int userChoice;
     boolean open = true;
 
