@@ -1,5 +1,6 @@
 package app;
 import database.DatabaseConnection;
+import database.MenuRepository;
 import input.ConsoleInputValidator;
 import model.MenuItem;
 import model.Order;
@@ -15,36 +16,11 @@ public class Cafe {
   static ArrayList<MenuItem> listOfDrinks = new ArrayList<MenuItem>();
   static ArrayList<MenuItem> listOfSizes = new ArrayList<MenuItem>();
   public ArrayList<Order> listOfOrders = new ArrayList<Order>();
-  String [] drink_names = {"Moonlight Latte", "Strawberry Cloud Matcha", "Starlight Hot Chocolate", "Vanilla Comet Cold Brew", "Lavendar Dream Tea"};
-  double [] dirnk_prices = {5.50, 6.25, 4.75, 5.25, 4.50};
-  String [] size_names = {"Small", "Medium", "Large"};
-  double [] size_prices = {0.0, 0.75, 0.75};
+  MenuRepository menu = new MenuRepository();
   
   public Cafe() {
-    initializeDrinkMenu();
-    initializeSizeMenu();
-  }
-
-  /**  
-  * This method creates a MenuItem with a drink_name and drink_price
-  * and adds it to the listOfDrinks until all drinks on the menu are added.
-  */
-  public void initializeDrinkMenu() {
-    for (int i = 0; i < drink_names.length; i++){
-      //MenuItem newItem = new MenuItem(drink_names[i], dirnk_prices[i]);
-      //listOfDrinks.add(newItem);
-    }
-  }
-
-  /**
-  * This method creates a MenuItem with a size and price (medium and large are an extra $0.75)
-  * and adds it to the listOfSizes with small, medium, and large.
-  */
-  public void initializeSizeMenu() {
-    for (int i = 0; i < size_names.length; i++){
-      //MenuItem newSize = new MenuItem(size_names[i], size_prices[i]);
-      //listOfSizes.add(newSize);
-    }
+    listOfDrinks = menu.getAllDrinks();
+    listOfSizes = menu.getAllSizes();
   }
 
   /**
@@ -179,14 +155,19 @@ public class Cafe {
    */
   public void displayDrinks() {
     System.out.println("\nDRINK MENU");
+
     int lineWidth = 25;
-    int itemNumber = 1;
+
     for (int i = 0; i < listOfDrinks.size(); i++) {
-      int amountOfDots = lineWidth - listOfDrinks.get(i).getItemName().length();
+      int totalDots = lineWidth - listOfDrinks.get(i).getItemName().length();
+
       System.out.printf(
-        "%h %s %s $%.2f%n", itemNumber, listOfDrinks.get(i).getItemName(), ".".repeat(amountOfDots), listOfDrinks.get(i).getItemPrice()
+        "%d %s %s $%.2f%n",
+        listOfDrinks.get(i).getItemId(),
+        listOfDrinks.get(i).getItemName(),
+         ".".repeat(totalDots), 
+        listOfDrinks.get(i).getItemPrice()
       );
-      itemNumber++;
     }
   }
 
@@ -195,14 +176,19 @@ public class Cafe {
    */
   public void displaySizes() {
     System.out.println("\nSIZES");
+
     int lineWidth = 25;
-    int itemNumber = 1;
+
     for (int i = 0; i < listOfSizes.size(); i++) {
-      int amountOfDots = lineWidth - listOfSizes.get(i).getItemName().length();
+      int totalDots = lineWidth - listOfSizes.get(i).getItemName().length();
+
       System.out.printf(
-        "%h %s %s $%.2f%n", itemNumber, listOfSizes.get(i).getItemName(), ".".repeat(amountOfDots), listOfSizes.get(i).getItemPrice()
+        "%d %s %s $%.2f%n",
+        listOfSizes.get(i).getItemId(),
+        listOfSizes.get(i).getItemName(),
+         ".".repeat(totalDots), 
+        listOfSizes.get(i).getItemPrice()
       );
-      itemNumber++;
     }
   }
 }

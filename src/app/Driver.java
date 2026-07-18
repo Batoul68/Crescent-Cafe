@@ -18,10 +18,6 @@ public class Driver {
      */
     public static void main(String[] args) throws Exception {
         Cafe cafe = new Cafe();
-        //cafe.runCafe();
-
-        MenuRepository menu = new MenuRepository();
-        ArrayList<MenuItem> drinks = menu.getAllDrinks();
-        menu.printDrinksList(drinks);
+        cafe.runCafe();
     }
 }
