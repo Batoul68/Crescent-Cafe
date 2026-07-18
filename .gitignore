@@ -1,0 +1,15 @@
+# Maven build output
+target/
+
+# VS Code settings
+.vscode/
+
+# Java compiled files
+*.class
+
+# Log files
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db

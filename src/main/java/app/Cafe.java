@@ -1,13 +1,12 @@
 package app;
-import database.DatabaseConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import database.MenuRepository;
 import input.ConsoleInputValidator;
 import model.MenuItem;
 import model.Order;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Cafe {
 
