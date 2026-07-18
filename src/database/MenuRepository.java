@@ -6,69 +6,69 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.spi.DirStateFactory.Result;
 
 public class MenuRepository {
-  ArrayList<MenuItem> drinksList = new ArrayList<MenuItem>();
-  ArrayList<MenuItem> sizeList = new ArrayList<MenuItem>();
-  
   /**
-  * Load all drinks from SQL database into MenuItems, add to list 
-  * of all drinks.
+  * Sends SQL query to helper method to get all drinks
+  * 
+  * @return list of all drinks returned from loadMenuItems
+  */
+  public List<MenuItem> getAllDrinks() {
+    String sql = """
+      SELECT drink_id AS item_id,
+      drink_name AS item_name,
+      drink_price AS item_price FROM drinks
+      """;
+
+    return loadMenuItems(sql);
+  }
+
+  /**
+  * Sends SQL query to helper method to get all sizes
   * 
   * @return list of all drinks
   */
-  public ArrayList<MenuItem> getAllDrinks() {
-    String sql = "SELECT drink_id, drink_name, drink_price FROM drinks";
+  public List<MenuItem> getAllSizes() {
+    String sql = """
+      SELECT size_id AS item_id,
+      size_name AS item_name,
+      price_adjustment AS item_price FROM sizes
+      """;
 
+    return loadMenuItems(sql);
+  }
+
+  /**
+  * Helper method that loads data from SQL database into MenuItems, adding to list 
+  * of MenuItems
+  * 
+  * @return list of loaded MenuItems
+  * @param sql query
+  */
+  private List<MenuItem> loadMenuItems (String query) {
+    List<MenuItem> menuItems = new ArrayList<>();
+    
     try (
       Connection connection = DatabaseConnection.getConnection();
-      PreparedStatement statement = connection.prepareStatement(sql);
+      PreparedStatement statement = connection.prepareStatement(query);
       ResultSet result = statement.executeQuery();
     ) {
       while(result.next()) {
         MenuItem newItem = new MenuItem(
-          result.getInt("drink_id"),
-          result.getString("drink_name"),
-          result.getDouble("drink_price")
+          result.getInt("item_id"),
+          result.getString("item_name"),
+          result.getDouble("item_price")
         );
-        drinksList.add(newItem);
+        menuItems.add(newItem);
       }
     } catch (SQLException e) {
-      System.out.println("Couldn't load drinks");
-      e.printStackTrace();
+      // stop program from running if MenuItems can't load from database
+      throw new RuntimeException("Unable to load menu items", e);
     }
-    return drinksList;
+
+    return menuItems;
   }
-
-  /**
-  * Load all drinks from SQL database into MenuItems, add to list 
-  * of all drinks.
-  * 
-  * @return list of all drinks
-  */
-  public ArrayList<MenuItem> getAllSizes() {
-    String sql = "SELECT size_id, size_name, price_adjustment FROM sizes";
-
-    try (
-      Connection connection = DatabaseConnection.getConnection();
-      PreparedStatement statement = connection.prepareStatement(sql);
-      ResultSet result = statement.executeQuery();
-    ) {
-      while(result.next()) {
-        MenuItem newItem = new MenuItem(
-          result.getInt("size_id"),
-          result.getString("size_name"),
-          result.getDouble("price_adjustment")
-        );
-        sizeList.add(newItem);
-      }
-    } catch (SQLException e) {
-      System.out.println("Couldn't load sizes");
-      e.printStackTrace();
-    }
-    return sizeList;
-  }
-
 }
