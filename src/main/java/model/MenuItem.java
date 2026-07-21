@@ -36,6 +36,7 @@ public class MenuItem {
     return itemPrice;
   }
 
+  @Override
   public String toString() {
     return (itemName + " " + itemPrice);
   }

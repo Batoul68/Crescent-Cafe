@@ -11,7 +11,6 @@ public class Order {
       throw new IllegalArgumentException("You have a name given to you at birth, please enter it.");
     }
     
-
     if (drink == null) {
       throw new IllegalArgumentException("You have to order something!");
     }
@@ -68,6 +67,7 @@ public class Order {
     this.sizeItem = size;
   }
 
+  @Override
   public String toString() {
     return (customerName + " " + drinkItem.getItemName() + drinkItem.getItemPrice());
   }
